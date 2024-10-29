@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
+import RequestSong from "@/components/pages/RequestSong.vue";
+import SignIn from '@/components/pages/SignIn.vue'
+import { useAuth } from './utils/auth/auth'
 
-function onClick() {
-  alert('it works')
-}
+const { isSignedIn, onAuth, onLogout } = useAuth()
 </script>
 
 <template>
-  <main>
-    <Button @click.prevent="onClick">test</Button>
+  <main class="flex min-h-full flex-1">
+    <div class="w-full">
+      <SignIn v-if="!isSignedIn" @onAuth="onAuth" />
+      <RequestSong v-else @onLogout="onLogout" />
+    </div>
   </main>
 </template>
